@@ -2,15 +2,23 @@
 
 #test if phybullet is installed
 import pybullet as p
-import time
+import time # sleep
+import pybullet_data # add floor
 
 #creat an object 
 physicsClient = p.connect(p.GUI)
+# add floor
+p.setAdditionalSearchPath(pybullet_data.getDataPath())
 # disable the sidebars on the pybullet simulation/speed up simulation
 #p.configureDebugVisualizer(p.COV_ENABLE_GUI,0)
 
+# add gravity
+p.setGravity(0,0,-9.8)
+# add floor
+planeId = p.loadURDF("plane.urdf")
+
 # tells pybullet to read in the world described in box.sdf.
-p.loadSDF("box.sdf")
+p.loadSDF("boxes.sdf")
 
 for i in range(1000):
   p.stepSimulation()
