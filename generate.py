@@ -94,16 +94,19 @@ def Create_World():
 ################################A three-link, two-joint robot#########################################################
 def Create_Robot():
     pyrosim.Start_URDF("body.urdf")
-    lengthWorld, widthWorld, heightWorld = 1, 1, 1
-    xWorld, yWorld, zWorld = 0, 0, 0.5
-    pyrosim.Send_Cube(name="BackLeg", pos=[xWorld, yWorld, zWorld] , size=[lengthWorld, widthWorld, heightWorld]) 
-    pyrosim.Send_Joint( name = "BackLeg_Torso" , parent= "BackLeg" , child = "Torso" , type = "revolute", position = [.5,0,1])
-    
+    # Torso is root link (1st)
     lengthRobot, widthRobot, heightRobot = 1, 1, 1
-    xRobot, yRobot, zRobot = 0.5, 0, .5
+    xRobot, yRobot, zRobot = 1.5, 0, 1.5
     pyrosim.Send_Cube(name="Torso", pos=[xRobot, yRobot, zRobot ] , size=[lengthRobot, widthRobot, heightRobot]) 
+    pyrosim.Send_Joint( name = "Torso_BackLeg" , parent= "Torso" , child = "BackLeg" , type = "revolute", position = [1,0,1])
     
-    pyrosim.Send_Joint( name = "Torso_FrontLeg" , parent= "Torso" , child = "FrontLeg" , type = "revolute", position = [1,0,0])
+    lengthWorld, widthWorld, heightWorld = 1, 1, 1
+    xWorld, yWorld, zWorld = -0.5, 0, -0.5
+    pyrosim.Send_Cube(name="BackLeg", pos=[xWorld, yWorld, zWorld] , size=[lengthWorld, widthWorld, heightWorld]) 
+   
+    
+    # as it is connected with root link, use absolute 
+    pyrosim.Send_Joint( name = "Torso_FrontLeg" , parent= "Torso" , child = "FrontLeg" , type = "revolute", position = [2,0,1])
     
     lengthRobot, widthRobot, heightRobot = 1, 1, 1
     xRobot, yRobot, zRobot = 0.5, 0, -.5
