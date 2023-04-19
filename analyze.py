@@ -28,14 +28,26 @@ import matplotlib.pyplot as plt
 ########################################################################################################### 
 
 
-backLegMotorValues = np.load('./data/backLegMotorValues.npy')
-frontLegMotorValues = np.load('./data/frontLegMotorValues.npy')
+# backLegMotorValues = np.load('./data/backLegMotorValues.npy')
+# frontLegMotorValues = np.load('./data/frontLegMotorValues.npy')
 
+# line_down, = plt.plot(backLegMotorValues, linewidth = 10, label='backLegMotor')
+# line_up, = plt.plot(frontLegMotorValues,label='frontLegMotor') 
 
+# #plt.legend()
+# plt.legend(handles=[line_down, line_up])
+# plt.show()
 
-line_down, = plt.plot(backLegMotorValues, linewidth = 10, label='backLegMotor')
-line_up, = plt.plot(frontLegMotorValues,label='frontLegMotor') 
+###################
 
-#plt.legend()
-plt.legend(handles=[line_down, line_up])
-plt.show()
+for j in [1,2,3]:
+    legNameSensor= np.load('./data/legNameSensor'+ str(j)+'.npy')
+
+    plt.plot(legNameSensor)
+    plt.show()
+
+for k in [1,2]:
+    legNameMotor= np.load('./data/legNameMotor'+ str(k)+'.npy')
+
+    plt.plot(legNameSensor)
+    plt.show()
