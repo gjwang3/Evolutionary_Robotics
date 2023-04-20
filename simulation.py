@@ -45,8 +45,9 @@ class SIMULATION:
     def Run(self):
         for i in range(c.numIteration):   
             p.stepSimulation()
-            
+            # every simulation time step order: 1 sensor neurons 2 hidden neurons 3 motor neurons.
             self.robot.Sense(i)
+            self.robot.Think()
             self.robot.Act(i)
 
             for jointNameEach in pyrosim.jointNamesToIndices:
@@ -59,6 +60,7 @@ class SIMULATION:
                 #  jointName = "jointNameEach", 
                 # jointName = b'jointNameEach', #if above does not work
                 jointName = jointNameEach,
+
                 # how the motor will attempt to control the motion
                 controlMode = p.POSITION_CONTROL, # or velocity control
                 # walk    

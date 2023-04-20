@@ -1,6 +1,9 @@
 import math
 
 import pyrosim.pyrosim as pyrosim
+# it generates links and joints and sends them to a urdf file, broadly-used file format in the robotics community
+# generate neurons and synapses and send them to a nndf file, nndf files, specific to pyrosim, in-house python robotics simulator, neural network-controlled robot
+
 
 ##################################### working pyramid######################################################################
 # tell pyrosim the name of the file for storing information
@@ -92,7 +95,8 @@ def Create_World():
 
 
 ################################A three-link, two-joint robot#########################################################
-def Create_Robot():
+#def Create_Robot():
+def Generate_Body():
     pyrosim.Start_URDF("body.urdf")
     # Torso is root link (1st)
     lengthRobot, widthRobot, heightRobot = 1, 1, 1
@@ -113,5 +117,27 @@ def Create_Robot():
     pyrosim.Send_Cube(name="FrontLeg", pos=[xRobot, yRobot, zRobot ] , size=[lengthRobot, widthRobot, heightRobot]) 
     pyrosim.End()
 #########################################################################################################################
+
+
+########################################################Brain ########################################################
+#def Create_Robot():
+def Generate_Brain():
+    pyrosim.Start_NeuralNetwork("brain.nndf")
+    # neurons receive values from sensors; 
+    pyrosim.Send_Sensor_Neuron(name = 0 , linkName = "Torso")
+    pyrosim.Send_Sensor_Neuron(name = 1 , linkName = "BackLeg")
+    pyrosim.Send_Sensor_Neuron(name = 2 , linkName = "FrontLeg")
+    
+    pyrosim.Send_Motor_Neuron( name = 3 , jointName = "Torso_BackLeg")
+    pyrosim.Send_Motor_Neuron( name = 4 , jointName = "Torso_FrontLeg")
+    pyrosim.End()
+#########################################################################################################################
+
+
+
+
+#call
 Create_World()
-Create_Robot()
+#Create_Robot()
+Generate_Body()
+Generate_Brain()

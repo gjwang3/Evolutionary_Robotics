@@ -96,8 +96,10 @@ def Prepare_Joint_Dictionary(bodyID):
 
         jointInfo = p.getJointInfo( bodyID , jointIndex )
 
-        jointName = jointInfo[1]
-
+        #jointName = jointInfo[1]# old
+        
+        jointName = jointInfo[1].decode('UTF-8')#new
+        
         jointNamesToIndices[jointName] = jointIndex
 
 def Prepare_To_Simulate(bodyID):
@@ -159,7 +161,8 @@ def Set_Motor_For_Joint(bodyIndex,jointName,controlMode,targetPosition,maxForce)
 
         bodyIndex      = bodyIndex,
 
-        jointIndex     = jointNamesToIndices[jointName],
+        jointIndex     = jointNamesToIndices[jointName],#old
+        #jointIndex = jointNamesToIndices[jointName.encode('ASCII')],#new
 
         controlMode    = controlMode,
 
